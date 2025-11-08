@@ -5,7 +5,6 @@ description: ''
 image: ''
 tags: [Thinking]
 category: 'Personal'
-draft: true 
 lang: ''
 ---
 
