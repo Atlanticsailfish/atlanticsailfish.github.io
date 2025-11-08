@@ -1,7 +1,7 @@
 ---
 title: Ubuntu命令合集
 published: 2025-08-14
-description: ''
+description: '一小撮Ubuntu命令合集，含系统管理、网络配置和故障排查。'
 image: './posts-images/124836141_p0_master1200.jpg'
 tags: [System,Linux,Ubuntu,Network]
 category: 'Work'

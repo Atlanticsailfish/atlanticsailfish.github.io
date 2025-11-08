@@ -1,24 +1,56 @@
 ---
 title: 数据库随笔
 published: 2025-08-25
+updated: 2025-10-28
 description: ''
 image: ''
-tags: [Devops, DBA, Database]
+tags: [DevOps, DBA, Database]
 category: 'Work'
 draft: false 
 lang: ''
 ---
 
-**是的，作为一名DevOps，会一些数据库也是很理所当然的事情吧**
+**数据库操作尽量做到高确定、可追溯、可回滚**
 
-## 提前设计备份策略
+## 高确定
+>XX，帮忙参照该表里的数据进行某某操作
 
-项目上线初期，基本数据已有之后便备份一份完整数据库数据并写入到了测试环境的数据库内，经过几天的兵荒马乱之后，发现一父表关联的9条子表数据在生产环境无影无踪，幸而在测试数据库的早期生产库备份里找到。
+>XX，这个表里的数据都清了吧
 
-也可采用不删除测试的ceta_app_test，转而新建一个ceta_app_pord_bk_time的方法，仅用于数据查询，不连接前端页面。
+对于客户没有明确的环境、数据范围/数量、更改值等信息，我们需要格外注意并且再次确认，客户的话是从自己脑袋里说出来，默认“你”已经知晓剩下的信息，我们不能以惯性思维去执行我们的行为。
 
-再搭配每天12:30，00:30 两次备份数据库，找回数据如喝水。
+## 可追溯
+对于增删改动作，对语句的关键信息、执行时间进行必要的记录，保留这部分语句，以便追溯
 
+>🤔使用数据库插件记录执行过的语句、执行时间、执行次数等？————审计功能
+
+
+## 可回滚
+
+备份原始数据（导出CSV/SQL）并做好标记，以便回滚
+
+**提前设计备份策略**
+
+>项目上线初期，基本数据已有之后便备份一份完整数据库数据并写入到了测试环境的数据库内，经过几天的兵荒马乱之后，发现一父表关联的9条子表数据在生产环境无影无踪，幸而在测试数据库的早期生产库备份里找到。
+
+
+本次生产环境的影子数据库是通过drop掉测试库，在新建库并导入生产库数据建立的，后面笔者想到也可采用不删除测试库的方法name_app_test，转而新建一个name_app_pord_bk_time数据库，仅用于数据查询，不连接前端页面。
+
+再配合每天12:30，00:30 两次数据备份的策略(参考文末：bash脚本“PostgreSQL 生产数据库备份脚本 (优化版)”)，找回数据易如反掌。
+
+**以上是比较原始的数据找回方法，下面介绍更加进阶的：**
+
+### PostgreSQL数据库的PITR（时间点恢复）方案（待实践）
+
+1. 持久化数据
+2. PostgreSQL配置
+3. 基础备份
+4. WAL归档
+5. 异地存储
+6. 恢复脚本
+
+
+## PostgreSQL 生产数据库备份脚本 (优化版)
 ```bash
 # ==============================================================================
 # PostgreSQL 生产数据库备份脚本 (优化版)
@@ -28,12 +60,12 @@ lang: ''
 # --- 配置参数 ---
 POSTGRES_COMPOSE_DIR="/opt/yourprojectname/docker-compose-installer/" # 生产环境 docker-compose.yml 所在目录
 POSTGRES_CONTAINER_NAME="postgres_prod"                     # 生产环境 PostgreSQL 容器名称
-POSTGRES_DB_NAME="ceta_app"                                # 要备份的数据库名称
+POSTGRES_DB_NAME="name_app"                                # 要备份的数据库名称
 POSTGRES_USER="postgres"                                   # 数据库用户
 BACKUP_DIR="/home/username/postgres_prod_bk/"                # 备份文件保存目录
 LOG_FILE="${BACKUP_DIR}backup_postgres_prod.log"           # 日志文件路径 (已修改)
 
-# 备份文件名前缀 (ceta_app_prod_dump_YYYYMMDD_HHMMSS.sql)
+# 备份文件名前缀 (name_app_prod_dump_YYYYMMDD_HHMMSS.sql)
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 BACKUP_FILE="${BACKUP_DIR}${POSTGRES_DB_NAME}_prod_dump_${TIMESTAMP}.sql"
 
@@ -80,3 +112,7 @@ log_message "旧备份清理完成。"
 log_message "备份任务结束。"
 log_message "============================================================"
 ```
+
+**视频推荐：postgres特性介绍**
+
+<iframe width="100%" height="468" src="//player.bilibili.com/player.html?bvid=BV1FUYQz7E4H&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>

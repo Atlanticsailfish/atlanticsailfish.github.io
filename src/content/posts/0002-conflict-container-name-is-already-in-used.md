@@ -13,14 +13,14 @@ lang: ''
 
 ## 情景重现
 
-项目上线生产环境的第一天，数据库持续飙高，访问越来越慢，此时你决定重启
+项目上线生产环境的第一天，数据库持续飙高，访问越来越慢，此时我决定重启生产环境
 写下`docker-compose up -d`并重启后令人疑惑的现象发生了：
 ```bash
 Error response from daemon: Conflict. The container name "/redis" is already in use by container "b3b8fcc2345..." You have to remove (or rename) that container to be able to reuse that name.'
 ```
 
-你冷静下来，决定使用 `docker-compose down` 先解决这些Conflict，完成后
-你再次使用 `docker-compose up -d`，接下来你不淡定了：
+我冷静下来，决定使用 `docker-compose down` 先解决这些Conflict，完成后
+我再次使用 `docker-compose up -d`，接下来我不淡定了：
  ```bash
 Error response from daemon: Conflict. The container name "/gateway" is already in use by container "a3c7d1342..." You have to remove (or rename) that container to be able to reuse that name.'
 ```
@@ -39,7 +39,7 @@ docker-compose up -d
 
 ## 解决过程
 
-摇来的人是**高师傅**，只二三条指令`docker logs -f gateway` `docker inspect gateway`，便看出了端倪：
+摇来的人是**G师傅**，只二三条指令`docker logs -f gateway` `docker inspect gateway`，便看出了端倪：
 ```bash
 "Mounts": [
             {
@@ -62,4 +62,4 @@ docker-compose up -d
 ## 事后总结
 
 对于Linux系统的路径认识不足，混淆了启动路径，又侥幸因为某段时间内配置文件的齐全而运行了一段时间
-措施：在`/home/user/`新建一个`dont_touch_me`文件夹用于存放配置文件（高师傅给的tips）
+措施：在`/home/user/`新建一个`dont_touch_me`文件夹用于存放配置文件（G师傅给的tips）

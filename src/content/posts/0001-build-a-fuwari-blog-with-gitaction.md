@@ -16,7 +16,7 @@ lang: ''
 
 我部署的base是[https://atlanticsailfish.github.io](https://atlanticsailfish.github.io)
 
-> 使用`username/username`格式的仓库，Github会自动给予一个不含仓库名称的公网链接
+> 使用`username/username.github.io`格式的仓库，Github会自动给予一个不含仓库名称的公网链接
 
 在配置`astro.config.mjs`的过程中，应该将`base`置空，如果留下了`base: '/'`，那博客就会变成只有文字的空壳...hhh
 ```bash
