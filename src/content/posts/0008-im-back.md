@@ -69,7 +69,7 @@ _谁打断你的复利谁就是你的敌人_
 ![April_return_on_investment](posts-images/0008_return_on_investment_01.png)
 
 
-![March_return_on_investment](posts-images\0008_return_on_investment_02.png)
+![March_return_on_investment](posts-images/0008_return_on_investment_02.png)
 
 
 思想不会在脑海中孕育成熟，它需要被表达成文字
