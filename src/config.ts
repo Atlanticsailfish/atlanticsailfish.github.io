@@ -57,17 +57,17 @@ export const profileConfig: ProfileConfig = {
 	name: "大西洋的旗魚",
 	bio: "Time is arguably more valuable than money because you can’t raise more time.",
 	links: [
-		{
-			name: "Twitter",
-			icon: "fa6-brands:twitter", // Visit https://icones.js.org/ for icon codes
-			// You will need to install the corresponding icon set if it's not already included
-			// `pnpm add @iconify-json/<icon-set-name>`
-			url: "https://twitter.com",
-		},
+		// {
+		// 	name: "Twitter",
+		// 	icon: "fa6-brands:qq", // Visit https://icones.js.org/ for icon codes
+		// 	// You will need to install the corresponding icon set if it's not already included
+		// 	// `pnpm add @iconify-json/<icon-set-name>`
+		// 	url: "https://user.qzone.qq.com/",
+		// },
 		{
 			name: "Steam",
 			icon: "fa6-brands:steam",
-			url: "https://store.steampowered.com",
+			url: "https://steamcommunity.com/profiles/76561198207779075/",
 		},
 		{
 			name: "GitHub",
