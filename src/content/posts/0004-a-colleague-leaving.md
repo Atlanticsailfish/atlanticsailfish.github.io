@@ -6,7 +6,7 @@ description: '一个打破现状的人，让我意识到工作环境已是如此
 image: './posts-images/0004-a-colleague-leaving.jpg'
 tags: [Workplace]
 category: 'Personal'
-draft: false 
+draft: true 
 lang: ''
 ---
 
